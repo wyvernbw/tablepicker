@@ -1,3 +1,4 @@
+import { H2 } from "@/components/h2";
 import { ModeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import Head from "next/head";
@@ -16,6 +17,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className="p-4">
+        <H2 className="m-4">CH9 Specialty Coffee</H2>
         <ModeToggle />
         <div> {products.data?.map((value) => value.name)}</div>
       </main>
