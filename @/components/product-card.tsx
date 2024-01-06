@@ -7,6 +7,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "./ui/button";
+import { api } from "~/utils/api";
+import { Category } from "./products";
 
 type Product = {
   id: string;
@@ -17,12 +19,18 @@ type Product = {
   price: number;
 };
 
-export const ProductCard = ({ product }: { product: Product }) => {
+export const ProductCard = ({
+  product,
+  category,
+}: {
+  product: Product;
+  category: Category;
+}) => {
   return (
     <Card>
       <CardHeader>
         <CardTitle>{product.name}</CardTitle>
-        <CardDescription>Double Shot</CardDescription>
+        <CardDescription>{category.name}</CardDescription>
       </CardHeader>
       <CardContent>
         <p>Description</p>

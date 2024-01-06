@@ -13,4 +13,11 @@ export const categoryRouter = createTRPCRouter({
         where: { categoryId: input.id },
       });
     }),
+  getById: publicProcedure
+    .input(z.object({ id: z.string() }))
+    .query(({ ctx, input }) => {
+      return ctx.db.category.findUnique({
+        where: { id: input.id },
+      });
+    }),
 });
