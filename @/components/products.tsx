@@ -10,7 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from "./ui/card";
-import { ScrollArea } from "./ui/scroll-area";
+import { ScrollArea, ScrollBar } from "./ui/scroll-area";
 import { H3 } from "./h3";
 import { Button } from "./ui/button";
 import { ShoppingBag } from "lucide-react";
@@ -38,7 +38,7 @@ export const Products = (props: { categories: Categories }) => {
   };
 
   return (
-    <Card className="h-[500px]">
+    <Card className="h-full">
       <CardHeader>
         <CardTitle>Add to order</CardTitle>
       </CardHeader>
@@ -54,7 +54,7 @@ export const Products = (props: { categories: Categories }) => {
           <ScrollArea>
             {categories.map((category) => (
               <TabsContent key={category.id} value={category.id}>
-                <ul className="flex gap-2">
+                <ul className="flex flex-wrap gap-2">
                   {getProducts(category).data?.map((product) => (
                     <li key={product.id}>
                       <ProductCard
@@ -68,6 +68,7 @@ export const Products = (props: { categories: Categories }) => {
                 </ul>
               </TabsContent>
             ))}
+            <ScrollBar orientation="vertical"></ScrollBar>
           </ScrollArea>
         </Tabs>
       </CardContent>
