@@ -7,9 +7,15 @@ import Head from "next/head";
 import Link from "next/link";
 
 import { api } from "~/utils/api";
+import { Products } from "@/components/products";
 
 export default function Home() {
-  const products = api.product.getProducts.useQuery();
+  const categories = api.category.getCategories.useQuery();
+
+  // TODO: return a loading state
+  if (categories.data == undefined) {
+    return null;
+  }
 
   return (
     <>
@@ -27,9 +33,8 @@ export default function Home() {
           </div>
           <p className="opacity-60">Here's a list of all things for sale!</p>
         </header>
-        <div className="my-8 flex gap-4">
-          {" "}
-          {products.data?.map((value) => <ProductCard product={value} />)}
+        <div className="my-4">
+          <Products categories={categories.data}></Products>
         </div>
       </main>
     </>
