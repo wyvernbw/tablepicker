@@ -15,6 +15,8 @@ import { H3 } from "./h3";
 import { Button } from "./ui/button";
 import { ShoppingBag } from "lucide-react";
 import { OrderPreview } from "./order-preview";
+import { useState } from "react";
+import { Product } from "@prisma/client";
 
 type Categories = RouterOutputs["category"]["getCategories"];
 export type Category = Categories[0];
@@ -24,6 +26,15 @@ export const Products = (props: { categories: Categories }) => {
 
   const getProducts = (category: Category) => {
     return api.category.getProductsByCategory.useQuery({ id: category.id });
+  };
+
+  const [order, setOrder] = useState<Product[]>([]);
+  const addToOrder = (product: Product) => {
+    setOrder([...order, product]);
+  };
+  const removeFromOrder = (product: Product) => {
+    order.splice(order.indexOf(product), 1);
+    setOrder([...order]);
   };
 
   return (
@@ -50,6 +61,7 @@ export const Products = (props: { categories: Categories }) => {
                         key={product.id}
                         product={product}
                         category={category}
+                        addToOrderFn={addToOrder}
                       />
                     </li>
                   ))}
@@ -60,7 +72,11 @@ export const Products = (props: { categories: Categories }) => {
         </Tabs>
       </CardContent>
       <CardFooter className="flex gap-2">
-        <OrderPreview></OrderPreview>
+        <OrderPreview
+          order={order}
+          addToOrderFn={addToOrder}
+          removeFromOrderFn={removeFromOrder}
+        ></OrderPreview>
       </CardFooter>
     </Card>
   );

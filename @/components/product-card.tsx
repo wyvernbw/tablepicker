@@ -7,37 +7,34 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "./ui/button";
-import { api } from "~/utils/api";
+import { RouterOutputs, api } from "~/utils/api";
 import { Category } from "./products";
 
-type Product = {
-  id: string;
-  name: string;
-  createdAt: Date;
-  updatedAt: Date;
-  categoryId: string | null;
-  price: number;
-};
+export type Product = RouterOutputs["product"]["getProducts"][0];
 
 export const ProductCard = ({
   product,
   category,
+  addToOrderFn,
 }: {
   product: Product;
   category: Category;
+  addToOrderFn: (product: Product) => void;
 }) => {
   return (
     <Card>
       <CardHeader>
         <CardTitle>{product.name}</CardTitle>
-        <CardDescription>{category.name}</CardDescription>
+        <CardDescription>{product.categoryName}</CardDescription>
       </CardHeader>
       <CardContent>
         <p>Description</p>
       </CardContent>
       <CardFooter className="flex gap-4">
         <p>{product.price} lei</p>
-        <Button variant="default">Order</Button>
+        <Button variant="default" onClick={() => addToOrderFn(product)}>
+          Order
+        </Button>
       </CardFooter>
     </Card>
   );

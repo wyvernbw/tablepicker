@@ -17,8 +17,9 @@ model Product {
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
-    Category   Category? @relation(fields: [categoryId], references: [id])
-    categoryId String?
+    Category     Category? @relation(fields: [categoryId, categoryName], references: [id, name])
+    categoryId   String?
+    categoryName String?
 
     price Float
 
@@ -26,10 +27,13 @@ model Product {
 }
 
 model Category {
+
     id        String   @id @default(cuid())
     name      String
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt
 
     products Product[]
+
+    @@unique([id, name])
 }
