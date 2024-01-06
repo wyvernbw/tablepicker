@@ -1,10 +1,20 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ReactQueryOptions } from "~/server/api/root";
+
 import { RouterOutputs, api } from "~/utils/api";
 import { ProductCard } from "./product-card";
-import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
 import { ScrollArea } from "./ui/scroll-area";
 import { H3 } from "./h3";
+import { Button } from "./ui/button";
+import { ShoppingBag } from "lucide-react";
+import { OrderPreview } from "./order-preview";
 
 type Categories = RouterOutputs["category"]["getCategories"];
 export type Category = Categories[0];
@@ -49,6 +59,9 @@ export const Products = (props: { categories: Categories }) => {
           </ScrollArea>
         </Tabs>
       </CardContent>
+      <CardFooter className="flex gap-2">
+        <OrderPreview></OrderPreview>
+      </CardFooter>
     </Card>
   );
 };
