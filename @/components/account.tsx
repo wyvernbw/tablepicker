@@ -22,7 +22,10 @@ export const Account = () => {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>My account</DropdownMenuLabel>
+        <DropdownMenuLabel>
+          <p>My Name</p>
+          <p className="font-normal opacity-60">my.address@example.com</p>
+        </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>Settings</DropdownMenuItem>
         <DropdownMenuItem>My orders</DropdownMenuItem>
