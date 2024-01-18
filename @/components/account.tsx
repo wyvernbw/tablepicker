@@ -10,6 +10,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { useClerk, useUser } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
+import { useRouter } from "next/router";
 
 export const Account = () => {
   const user = useUser();
@@ -20,6 +22,7 @@ export const Account = () => {
 };
 
 const LoggedOut = () => {
+  const router = useRouter();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -32,7 +35,13 @@ const LoggedOut = () => {
       <DropdownMenuContent>
         <DropdownMenuLabel>Logged Out</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Log In</DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            router.push("/sign-in");
+          }}
+        >
+          Log In
+        </DropdownMenuItem>
         <DropdownMenuItem>Sign up</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
