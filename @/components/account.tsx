@@ -9,27 +9,66 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { useClerk, useUser } from "@clerk/nextjs";
 
 export const Account = () => {
+  const user = useUser();
+  if (!user.isSignedIn) {
+    return <LoggedOut />;
+  }
+  return <LoggedIn />;
+};
+
+const LoggedOut = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button variant={"link"} size={"icon"}>
           <Avatar>
-            <AvatarImage src="https://github.com/wyvernbw.png" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent>
+        <DropdownMenuLabel>Logged Out</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem>Log In</DropdownMenuItem>
+        <DropdownMenuItem>Sign up</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+};
+
+const LoggedIn = () => {
+  const user = useUser();
+  const { signOut } = useClerk();
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant={"link"} size={"icon"}>
+          <Avatar>
+            <AvatarImage src={user.user?.imageUrl} />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuLabel>
-          <p>My Name</p>
-          <p className="font-normal opacity-60">my.address@example.com</p>
+          <p>{user.user?.fullName}</p>
+          <p className="font-normal opacity-60">
+            {user.user?.primaryEmailAddress?.emailAddress}
+          </p>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>Settings</DropdownMenuItem>
         <DropdownMenuItem>My orders</DropdownMenuItem>
-        <DropdownMenuItem>Log out</DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => {
+            signOut();
+          }}
+        >
+          Log out
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
