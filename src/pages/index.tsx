@@ -1,7 +1,7 @@
 import { H2 } from "@/components/h2";
 import { ProductCard } from "@/components/product-card";
 import { Account } from "@/components/account";
-import { ModeToggle } from "@/components/theme-toggle";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Button } from "@/components/ui/button";
 import Head from "next/head";
 import Link from "next/link";
@@ -28,7 +28,7 @@ export default function Home() {
         <header>
           <div className="flex gap-6">
             <H2 className="my-4">CH9 Specialty Coffee</H2>
-            <ModeToggle />
+            <ThemeToggle />
             <Account />
           </div>
           <p className="opacity-60">Here's a list of all things for sale!</p>

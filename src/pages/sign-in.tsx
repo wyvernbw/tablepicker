@@ -15,10 +15,15 @@ import { useSignIn } from "@clerk/nextjs";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { ThemeToggle } from "@/components/theme-toggle";
+import { useRouter } from "next/router";
+import { H2 } from "@/components/h2";
+import { H3 } from "@/components/h3";
 
 type Providers = "google" | "apple";
 
 export default function SignInPage() {
+  const router = useRouter();
   const { signIn } = useSignIn();
   const OAuthButton = ({
     provider,
@@ -57,21 +62,25 @@ export default function SignInPage() {
   };
 
   return (
-    <div className="flex h-screen flex-grow flex-row bg-zinc-900">
-      <div className="sm:basis-0 lg:basis-3/5"></div>
+    <div className="flex h-screen flex-grow flex-row ">
+      <div className="bg-zinc-50 p-8 sm:basis-0 lg:basis-3/5 dark:bg-zinc-900">
+        <H3>CH9</H3>
+      </div>
       <Separator orientation="vertical" />
-      <div className="flex h-screen  flex-col items-center gap-2 bg-zinc-950 p-16 align-middle sm:w-screen sm:basis-full lg:basis-2/5">
+      <div className="flex h-screen  flex-col items-center gap-2 p-16 align-middle sm:w-screen sm:basis-full lg:basis-2/5 dark:bg-zinc-950">
         {" "}
+        <div className="flex w-full justify-end">
+          <ThemeToggle />
+        </div>
         <H1 className="my-8"> Log In </H1>
-        <OAuthButton provider="google">continue with Google</OAuthButton>
-        <OAuthButton provider="apple">continue with Apple</OAuthButton>
+        <OAuthButton provider="google">Continue with Google</OAuthButton>
+        <OAuthButton provider="apple">Continue with Apple</OAuthButton>
         <div className="mx-0 my-2 flex w-full shrink items-center gap-2 p-0">
           <Separator orientation="horizontal" className="min-w-0 shrink" />
-          <p className="basis-auto"> Or </p>
+          <p className="basis-auto text-sm opacity-50"> OR </p>
           <Separator className="min-w-0 shrink" />
         </div>
         <Form {...form}>
-          Log in with email
           <form
             onSubmit={form.handleSubmit(onSubmit)}
             className="flex w-full flex-col gap-2"
@@ -81,9 +90,8 @@ export default function SignInPage() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
                   <FormControl>
-                    <Input placeholder="email" {...field} />
+                    <Input placeholder="address@example.com" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -94,19 +102,27 @@ export default function SignInPage() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
                   <FormControl>
-                    <Input placeholder="secure password" {...field} />
+                    <Input placeholder="password" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
-            <Button type="submit" className="my-6">
-              Submit
+            <Button type="submit" className="mt-6">
+              Log in with Email
             </Button>
           </form>
         </Form>
+        <Button
+          variant="outline"
+          className="w-full"
+          onClick={() => {
+            router.push("/");
+          }}
+        >
+          Continue as Guest
+        </Button>
       </div>
     </div>
   );

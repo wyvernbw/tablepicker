@@ -28,7 +28,7 @@ const LoggedOut = () => {
       <DropdownMenuTrigger asChild>
         <Button variant={"link"} size={"icon"}>
           <Avatar>
-            <AvatarFallback>CN</AvatarFallback>
+            <AvatarFallback>ME</AvatarFallback>
           </Avatar>
         </Button>
       </DropdownMenuTrigger>
